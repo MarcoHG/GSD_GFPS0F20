@@ -1,0 +1,791 @@
+;=====================================================================
+; Device description file according to DIN 19245 Part 3 (PROFIBUS-DP)
+;=====================================================================
+;
+; FILENAME      : GFPS0F20.gsd
+;---------------------------------------------------------------------
+; DEVICENAME    : 3-0486 Profibus Concentrator
+;---------------------------------------------------------------------
+; PROTOCOL      : PROFIBUS-DP slave
+;								:	Anybus-CC PROFIBUS DP-V1
+;---------------------------------------------------------------------
+; VENDOR        : Georg Fischer Piping Systems 
+;								:	http://www.gfps.com
+;							  :	Phone: +1 626 571 2770			
+;---------------------------------------------------------------------
+; DATE          : 09 April 2015
+;---------------------------------------------------------------------
+; MODIFICATIONS : 09 April 2015 rev. 1.00
+;                   -First release
+;
+;=====================================================================
+
+#Profibus_DP
+
+
+;---------------------------------------------------------------------
+; Unit definition list:
+;---------------------------------------------------------------------
+
+
+
+GSD_Revision        = 3
+
+; Device identification
+Vendor_Name         = "Georg Fischer Piping Systems"			
+Model_Name          = "3-0486"
+Revision            = "1.00"
+Ident_Number        = 0x0F20		
+Protocol_Ident      = 0                ; DP protocol
+Station_Type        = 0                ; Slave device
+FMS_supp            = 0                ; FMS not supported
+Slave_Family        = 0                ; General device
+Hardware_Release    = "Version 1.00"
+Software_Release    = "Version 1.00"
+
+; Supported hardware features
+Redundancy          = 0                ; not supported
+Repeater_Ctrl_Sig   = 2                ; TTL
+24V_Pins            = 0                ; not connected
+Implementation_Type = "NP30"
+
+; Supported DP features
+Freeze_Mode_supp    = 1                ; supported
+Sync_Mode_supp      = 1                ; supported
+Auto_Baud_supp      = 1                ; supported
+Set_Slave_Add_supp  = 1                ; supported
+Fail_Safe           = 1                ; (TBD) states in clear mode
+
+; Supported baudrates
+9.6_supp            = 1
+19.2_supp           = 1
+45.45_supp          = 1
+93.75_supp          = 1
+187.5_supp          = 1
+500_supp            = 1
+1.5M_supp           = 1
+3M_supp             = 1
+6M_supp             = 1
+12M_supp            = 1
+
+; Maximum responder time for supported baudrates
+MaxTsdr_9.6         = 15
+MaxTsdr_19.2        = 15
+MaxTsdr_45.45       = 15
+MaxTsdr_93.75       = 15
+MaxTsdr_187.5       = 15
+MaxTsdr_500         = 15
+MaxTsdr_1.5M        = 25
+MaxTsdr_3M          = 50
+MaxTsdr_6M          = 100
+MaxTsdr_12M         = 200
+
+; Maximum polling frequency
+Min_Slave_Intervall = 6               ; 0.6 ms
+
+; I/O related keywords
+Modular_Station     = 1               ; modular
+Max_Module          = 7								; 7 Modules
+; Anybus CC Standard Buffer
+Max_Input_Len       = 152					
+Max_Output_Len      = 152
+Max_Data_Len        = 152
+Modul_Offset        = 1
+
+; Parameterization related keywords
+Max_User_Prm_Data_Len   = 160								;Use all Standard Buffer 
+Ext_User_Prm_Data_Const(0) = 0xC0,0x00,0x00	;0:7=EnblDPV1, 0:6=Fail_Safe 
+
+; Diagnostic related keywords  	
+Max_Diag_Data_Len   = 80
+
+;Status diagnostic messages
+Unit_Diag_Area=16-17
+Value(0)  = "Status not changed"
+Value(1)  = "Status appears"
+Value(2)  = "Status disappears"
+Unit_Diag_Area_End
+
+Unit_Diag_Area=24-31
+Value(0)   = "Minor, recoverable"
+Value(16)  = "Minor, unrecoverable"
+Value(32)  = "Major, recoverable"
+Unit_Diag_Area_End
+
+Unit_Diag_Area=32-39
+Value(16)  = "Generic Error"
+Value(32)  = "Current"
+Value(33)  = "Current, device input side"
+Value(34)  = "Current, inside the device"
+Value(35)  = "Current, device output side"
+Value(48)  = "Voltage"
+Value(49)  = "Mains Voltage"
+Value(50)  = "Voltage inside the device"
+Value(51)  = "Output Voltage"
+Value(64)  = "Temperature"
+Value(65)  = "Ambient Temperature"
+Value(66)  = "Device Temperature"
+Value(80)  = "Device Hardware"
+Value(96)  = "Device Software"
+Value(97)  = "Internal Software"
+Value(98)  = "User Software"
+Value(99)  = "Data Set"
+Value(112) = "Additional Modules"
+Value(128) = "Monitoring"
+Value(129) = "Communication"
+Value(130) = "Protocol Error"
+Value(144) = "External Error"
+Value(240) = "Additional Functions"
+Unit_Diag_Area_End
+; End - All diagnostics as original
+
+; DPV1 related keywords
+DPV1_Slave              = 1
+Check_Cfg_Mode          = 1
+
+C1_Read_Write_supp      = 1
+C1_Max_Data_Len         = 68
+C1_Response_Timeout     = 100  ;1 sec
+
+C2_Read_Write_supp      = 1
+C2_Max_Data_Len         = 68
+C2_Response_Timeout     = 100  ;1 sec
+C2_Max_Count_Channels   = 1
+Max_Initiate_PDU_Length = 52
+
+; No I&M support -- Ident_Maintenance_supp  = 1	
+
+
+PrmText = 2
+Text(0) = "Celsius"
+Text(1) = "Farenheit"
+EndPrmText
+
+
+; Flow Units
+;	
+PrmText = 3
+Text(0)  = "liter/sec";	LPS"
+Text(1)  = "liter/min";	"LPM"
+Text(2)  = "liter/h"	;"LPH"
+Text(3)  = "liter/day"	;"LPD"
+Text(4)  = "GPS"
+Text(5)  = "GPM"
+Text(6)  = "GPH"
+Text(7)  = "GPD"
+Text(8)  = "m3/sec"	;	"M3S"
+Text(9)  = "m3/min"	;	"M3M"
+Text(10) = "m3/h"		;	"M3H"
+Text(11) = "m3/day"	;	"M3D"
+Text(12) = "ft3/sec"	;"F3S"
+Text(13) = "ft3/min"	;"F3M"
+Text(14) = "ft3/h"		;"F3H"
+Text(15) = "ft3/d"	;	"F3D"
+Text(16) = "MPS"
+Text(17) = "ft/sec"	;"FPS"
+EndPrmText
+
+
+PrmText = 5 
+Text(0) = " OFF "
+Text(1) = " ON "
+EndPrmText
+
+
+PrmText = 7
+Text(0) = " Reset Totalizer"
+Text(1) = " Get Last Value"
+EndPrmText
+
+PrmText = 8
+Text(0) = " 50 Hz "
+Text(1) = " 60 Hz "
+EndPrmText
+
+; Magmeter Averaging
+; 
+PrmText = 9
+Text(0)  = "0 Sec"
+Text(1)  = "0.2 Sec"
+Text(2)  = "0.4 Sec"
+Text(3)  = "0.8 Sec"
+Text(4)  = "1.6 Sec"
+Text(5)  = "3.3 Sec"
+Text(6)  = "6.6 Sec"
+Text(7)  = "13 Sec"
+Text(8)  = "26 Sec"
+Text(9)  = "52 Sec"
+Text(10)  = "105 Sec"
+EndPrmText
+
+; Magmeter - Paddle wheel Sensitivity
+;	
+PrmText = 10
+Text(0)  = " 100% "
+Text(1)  = " 50% "
+Text(2)  = " 30% "
+Text(3)  = " 25% "
+Text(4)  = " 20% "
+Text(5)  = " 15%"
+Text(6)  = " 10%"
+Text(7)  = " 7.5% "
+Text(8)  = " 5.0% "
+Text(9)  = " 2.5% "
+EndPrmText
+
+; Pressure Units
+PrmText = 11
+Text(0)  = " PSI "
+Text(1)  = " Bar "
+Text(2)  = " kPa "
+EndPrmText
+
+; Level Units
+PrmText = 12
+Text(0)  = " Centimeters"
+Text(1)  = " Meters "
+Text(2)  = " Inches "
+Text(3)  = " Feet "
+EndPrmText
+
+
+
+; Dissolved Oxygen Units
+PrmText = 15
+Text(0) = " ppm "
+Text(1) = " %Saturation "
+Text(2) = " Torr "
+EndPrmText
+
+; Number of Decimal places
+PrmText = 16
+Text(0) = "No Decimal Pos 0"
+Text(1) = " 1 Decimal Pos 0.0"
+Text(2) = " 2 Decimal Pos 0.00"
+Text(3) = " 4 Decimal Pos 0.0000"
+EndPrmText
+
+PrmText = 17	; 
+Text(0) = "0 Secs "
+Text(1) = "2 Secs"
+Text(2) = "3 Secs" 
+Text(3) = "4 Secs"
+Text(4) = "6 Secs"
+Text(5) = "10 Secs"
+Text(6) = "12 Secs"
+Text(7) = "30 Secs"
+Text(8) = "40 Secs"
+Text(9) = "120 Secs"
+EndPrmText
+
+
+
+
+PrmText = 21
+Text(0) = "0 Secs "
+Text(5) = "10 Secs"
+Text(8) = "40 Secs"
+Text(9) = "120 Secs"
+EndPrmText
+
+
+; Frequency Input type
+PrmText = 23	; 
+Text(0) = "Open Collector"
+Text(1) = "Sinusoidal"
+EndPrmText
+
+; Conductivity Units
+PrmText = 24	; 
+Text(0) = "  uS  "
+Text(1) = "  mS  "
+Text(2) = " MOhm "
+EndPrmText
+
+; Conductivity Temperature Compesnation Method
+PrmText = 25	; 
+Text(0) = " --NONE--  "
+Text(1) = "  Linear   "
+Text(2) = " Pure Water"
+EndPrmText
+
+
+
+
+
+;---------------------------------------------------------------------
+; Ext-User-Prm-Data-Def-List:
+;---------------------------------------------------------------------
+
+
+; Extended diagnostics (option to provide more info- not used)
+
+
+; -- Modules 
+
+; 2->5
+ExtUserPrmData = 5 "K-Factor"
+unsigned32 0 0-99999999
+EndExtUserPrmData
+
+; 3->6
+ExtUserPrmData = 6 "Flow Units"	
+BitArea(0-4) 5 0-17		;	GPM
+Prm_Text_Ref = 3
+EndExtUserPrmData
+
+; 4->7
+ExtUserPrmData = 7 "Valve Failsafe Pos"	
+unsigned16 0 0-24000; unsigned16	0	0-24000
+EndExtUserPrmData
+
+
+ExtUserPrmData = 8 "K-factor Decimal Places"	
+BitArea(5-6) 0 0-3		;	0
+Prm_Text_Ref = 16
+EndExtUserPrmData
+
+
+;;;; BETA 7.29.14
+ExtUserPrmData = 10 "4mA setpoint"
+signed32 0 -99999999-99999999
+EndExtUserPrmData
+
+ExtUserPrmData = 11 "20mA setpoint"
+signed32 1000000 -99999999-99999999
+EndExtUserPrmData
+
+; 	== Relay
+ExtUserPrmData = 12 "Relay 1 Failsafe value"
+Bit(0) 0 0-1
+Prm_Text_Ref = 5
+EndExtUserPrmData
+
+ExtUserPrmData = 13 "Relay 2 Failsafe value"
+Bit(1) 0 0-1
+Prm_Text_Ref = 5
+EndExtUserPrmData
+
+ExtUserPrmData = 14 "Relay 3 Failsafe value"
+Bit(2) 0 0-1
+Prm_Text_Ref = 5
+EndExtUserPrmData
+
+ExtUserPrmData = 15 "Relay 4 Failsafe value"
+Bit(3) 0 0-1
+Prm_Text_Ref = 5
+EndExtUserPrmData
+
+
+ExtUserPrmData = 17 "Notch Filter"
+Bit(7) 0 0-1
+Prm_Text_Ref = 8
+EndExtUserPrmData
+
+
+ExtUserPrmData = 19 " Sensitivity "	
+BitArea(4-7) 0 0-9		;	0
+Prm_Text_Ref = 10
+EndExtUserPrmData
+
+ExtUserPrmData = 20 "Cutoff Low Freq % of 2.5m/sec"
+unsigned8 0 0-100
+EndExtUserPrmData
+
+ExtUserPrmData = 21 "Pressure Units"
+BitArea(4-5) 0 0-2		;	0
+Prm_Text_Ref = 11
+EndExtUserPrmData
+
+ExtUserPrmData = 22 "Specific Gravity"
+unsigned16 1000 0-9999	; B13
+EndExtUserPrmData
+
+ExtUserPrmData = 23 "Level Units"
+BitArea(4-5) 0 0-3		;	
+Prm_Text_Ref = 12
+EndExtUserPrmData
+
+
+ExtUserPrmData = 25 "pH/ORP Temperature Units"
+Bit(1) 0 0-1;	
+Prm_Text_Ref = 2
+EndExtUserPrmData
+
+;ExtUserPrmData = 26 "pH/ORP Electrode Chip"
+;Bit(2) 0 0-1;	
+;Prm_Text_Ref = 14
+;EndExtUserPrmData
+
+
+ExtUserPrmData = 27 "Dissolved Oxygen Units"
+BitArea(0-1) 0 0-2		;
+Prm_Text_Ref = 15
+EndExtUserPrmData
+
+
+ExtUserPrmData = 28 "DO Temperature Units"
+Bit(2) 0 0-1
+Prm_Text_Ref = 2
+EndExtUserPrmData
+
+; Range 506.62 to 1114.7 taken from 2610.09 and Bruce Crabtree
+ExtUserPrmData = 29 "Barometric mbar x0.01"
+unsigned32 101325 50662-111470
+EndExtUserPrmData
+
+; Range 0 to 42 taken from manual 2610.09
+ExtUserPrmData = 30 "Salinity PSU x0.1"
+unsigned32 0 0-420
+EndExtUserPrmData
+
+ExtUserPrmData = 31 "Totalizer PowerUp Action"	
+Bit(7) 0 0-1
+Prm_Text_Ref = 7
+EndExtUserPrmData
+
+ExtUserPrmData = 32 "Totalizer Constant: Numerator"	
+unsigned16 0 0-65535	; Procentec 0xFFFF
+EndExtUserPrmData
+
+ExtUserPrmData = 33 "Totalizer Constant: Denominator"	
+unsigned16 1 1-65535	; Procentec
+EndExtUserPrmData
+
+;	Temp units bit 4
+ExtUserPrmData = 34 "Temperature Units"
+Bit(4) 0 0-1
+Prm_Text_Ref = 2
+EndExtUserPrmData
+
+
+; Use magmeter internal average
+ExtUserPrmData = 36 " Averaging (Flow)"	;
+BitArea(0-3) 0 0-10	; @todo default should be zero 
+Prm_Text_Ref = 9
+EndExtUserPrmData
+
+ExtUserPrmData = 37 "Averaging (pH,ORP) "	; 0,2,4,12
+BitArea(0-3) 0 0,1,3,6
+Prm_Text_Ref = 17
+EndExtUserPrmData
+
+ExtUserPrmData = 38 "Averaging (Cond/Res/Sal) "	; 0,4,6,12
+BitArea(0-3) 0 0,3,4,6
+Prm_Text_Ref = 17
+EndExtUserPrmData
+
+ExtUserPrmData = 39 "Averaging(Press/Level/Vol/4-20)"	; 0,4,10,30
+BitArea(0-3) 0 0,3,5,7
+Prm_Text_Ref = 17
+EndExtUserPrmData
+
+ExtUserPrmData = 40 "Averaging (Temperature) "	; 0,3,10,30
+BitArea(0-3) 0 0,2,5,7
+Prm_Text_Ref = 17
+EndExtUserPrmData
+
+
+; Raw Frequency Average
+ExtUserPrmData = 42 " Averaging (Flow-Freq)"	;
+BitArea(0-3) 0 0,5,8,9 
+Prm_Text_Ref = 17
+EndExtUserPrmData
+
+; Decimal Point 4 mA position bits 4-5
+ExtUserPrmData = 43 " 4mA Decimal Places"	;
+BitArea(4-5) 3 0-3		;	0.0000
+Prm_Text_Ref = 16
+EndExtUserPrmData
+
+; Decimal Point 20 mA position bits 6-7
+ExtUserPrmData = 44 " 20mA Decimal Places"	;
+BitArea(6-7) 3 0-3		;	0.0000
+Prm_Text_Ref = 16
+EndExtUserPrmData
+
+
+;	Frequency Input type
+ExtUserPrmData = 45 "Frequency Input Type"
+Bit(0) 0 0-1
+Prm_Text_Ref = 23
+EndExtUserPrmData
+
+; Dissolved Oxygen Filter 
+ExtUserPrmData = 46 "Averaging (DissOxy)"
+BitArea(0-3) 0 0,5,8,9 ; 0,10,40,120 Secs
+Prm_Text_Ref = 21
+EndExtUserPrmData
+
+; Conductivity  
+ExtUserPrmData = 47 "Conductivity Units"
+BitArea(0-1) 0 0,1,2;  
+Prm_Text_Ref = 24
+EndExtUserPrmData
+
+; Conductivity  
+ExtUserPrmData = 48 "Temperature Compensation"
+BitArea(2-3) 0 0,1,2;  
+Prm_Text_Ref = 25
+EndExtUserPrmData
+
+; Conductivity
+ExtUserPrmData = 49 "Temp Compensation percent x0.001"	
+unsigned16 2000 0-6000	; 
+EndExtUserPrmData
+
+ExtUserPrmData = 50 "Cell Constant "	
+unsigned16 1000 0-9999	; KCell 1.000
+EndExtUserPrmData
+
+ExtUserPrmData = 51 "Custm Cell Dec places to Left"
+BitArea(4-7) 3 2-6;	
+EndExtUserPrmData
+
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; Definition of modules
+
+; ---------------------------------------------------------------------------
+;
+;==	Interchangeable channel use: SpecialID One IN/OUT, IN=1Wd, OUT=9 bytes
+;
+Module = "Available Channel"   0xC0, 0x40, 0x88
+1
+Ext_Module_Prm_Data_len = 3
+Ext_User_Prm_Data_Const(0) = 0xFF, 0xFE, 0x00
+EndModule
+;
+
+;==	+GF+ Prop Valve Control
+Module = "Valve Control"   0xC0, 0x40, 0x82
+2
+Ext_Module_Prm_Data_len = 6
+Ext_User_Prm_Data_Const(0) = 0x09, 0xA4, 0x03, \		; 2468
+0x00,0x00,0x00;	; Failsafe 0, 12.11.14 
+Ext_User_Prm_Data_Ref(3)= 7;	Valve Fail Safe Position
+Ext_User_Prm_Data_Ref(5)= 39; Current In Ave 12.11.14
+EndModule
+
+
+;==	Raw Flow - Frequency Input: 515, 525, 2000, 2100, 2507, 2536, 2537, 2540, 
+;	2551, 2552, 220/330, U3000/U400
+Module = "Flow- Frequency input"   0xC0, 0x40, 0x88
+3
+Ext_Module_Prm_Data_len = 14;
+Ext_User_Prm_Data_Const(0) = 0x02,0x03,0x0B,0x00,0x00,0x00,0x00,\	
+0x00, \
+0x00,0x00, 0x00, 0x01, 0x00, 0x00;
+;Ext_User_Prm_Data_Ref(2)= 1
+Ext_User_Prm_Data_Ref(3)= 5	; k
+Ext_User_Prm_Data_Ref(7)= 8; Dec places
+Ext_User_Prm_Data_Ref(7)= 6;	units
+Ext_User_Prm_Data_Ref(7)= 31;	PowerUp Action
+Ext_User_Prm_Data_Ref(8)= 32; Tot-Num
+Ext_User_Prm_Data_Ref(10)= 33; Tot-Den	
+Ext_User_Prm_Data_Ref(12)= 42; [0-3] Ave 
+Ext_User_Prm_Data_Ref(12)= 19;	[4-7] Sensitivity
+Ext_User_Prm_Data_Ref(13)= 45;	[0] Frequency Input Type 
+EndModule
+
+
+;==	+GF+ Built in 4-20mA Current Input 
+Module = "Built in 4-20mA Input"   0xC0, 0x40, 0x88
+4
+Ext_Module_Prm_Data_len = 12
+Ext_User_Prm_Data_Const(0) = 0x27, 0x06, 0x09,	\	; id= 9990 
+0x00, 0x00, 0x00, 0x00,\ 
+0x00, 0x0f, 0x42, 0x40,\
+0xf0
+Ext_User_Prm_Data_Ref(3)= 10
+Ext_User_Prm_Data_Ref(11)= 43
+Ext_User_Prm_Data_Ref(7)= 11
+Ext_User_Prm_Data_Ref(11)= 44
+Ext_User_Prm_Data_Ref(11)= 39	; Ave
+
+EndModule
+
+
+
+;==	+GF+ Relay 4, 8059 
+Module = "Relay Module"   0xC0, 0x40, 0x88
+5
+Ext_Module_Prm_Data_len = 4
+Ext_User_Prm_Data_Const(0) = 0x1F, 0x7B, 0x01, 0x00
+Ext_User_Prm_Data_Ref(3)= 12
+Ext_User_Prm_Data_Ref(3)= 13
+Ext_User_Prm_Data_Ref(3)= 14
+Ext_User_Prm_Data_Ref(3)= 15
+ 
+EndModule
+
+
+;==	+GF+ Temperature Sensor 2350 
+Module = "Temperature Sensor"   0xC0, 0x40, 0x88
+6
+Ext_Module_Prm_Data_len = 4
+Ext_User_Prm_Data_Const(0) = 0x09, 0x2E, 0x01, 0x00
+;Ext_User_Prm_Data_Ref(2)= 7				;
+Ext_User_Prm_Data_Ref(3)= 34	; [4] units
+Ext_User_Prm_Data_Ref(3)= 40	; [0-3] ave 
+EndModule
+
+
+;==	+GF+ 4-20mA current Input  8058  
+Module = "Current 4-20mA IN (iGo)"   0xC0, 0x40, 0x88
+7
+Ext_Module_Prm_Data_len = 12
+Ext_User_Prm_Data_Const(0) = 0x1F, 0x7A, 0x09,	\	; id= 8058 
+0x00, 0x00, 0x00, 0x00,\ 
+0x00, 0x0f, 0x42, 0x40,\
+0xf0
+Ext_User_Prm_Data_Ref(3)= 10
+Ext_User_Prm_Data_Ref(11)= 43
+Ext_User_Prm_Data_Ref(7)= 11
+Ext_User_Prm_Data_Ref(11)= 44
+Ext_User_Prm_Data_Ref(11)= 39
+
+EndModule
+
+;
+;==	+GF+ Conductivity 2850
+Module = "Conductivity Sensor"   0xC0, 0x40, 0x88
+8
+Ext_Module_Prm_Data_len = 9
+Ext_User_Prm_Data_Const(0) = 0x0B, 0x22, 0x06, 0x00, \
+0x00,0x00,0x00,0x00,0x00 ; 
+Ext_User_Prm_Data_Ref(3)= 34 ; Temp 	
+Ext_User_Prm_Data_Ref(4)= 47 ; Conduct units (0-1)
+Ext_User_Prm_Data_Ref(4)= 48 ; Compens Method (2-3)
+Ext_User_Prm_Data_Ref(5)= 49 ; Compens Percent uint16
+Ext_User_Prm_Data_Ref(7)= 50 ; Cell Constant 0 to 9999
+Ext_User_Prm_Data_Ref(4)= 51 ; Decimal pos to left  (4-7)
+Ext_User_Prm_Data_Ref(3)= 38 ; Ave (0-3)
+EndModule
+
+;
+;==	+GF+ Flow 2551, 2552
+Module = "Flow -MagMeter type"   0xC0, 0x40, 0x88
+9
+Ext_Module_Prm_Data_len = 15
+Ext_User_Prm_Data_Const(0) = 0x09,0xF7,0x0c,0x00,0x00,0x00,0x00,\
+0x05,0x00,0x00,0x00,0x01,0x00,0x00,0x00;
+
+;== Compatible with FreqIn
+Ext_User_Prm_Data_Ref(3)= 5	; K-Factor
+Ext_User_Prm_Data_Ref(7)= 8; 	[5-6]K-factor Decimal Places
+Ext_User_Prm_Data_Ref(7)= 6;	[0-4] Flow units
+Ext_User_Prm_Data_Ref(7)= 31;	[7] PowerUp Action
+Ext_User_Prm_Data_Ref(8)= 32; Totalizer fact: Numerator
+Ext_User_Prm_Data_Ref(10)= 33; Totalizer fact: Denominator
+Ext_User_Prm_Data_Ref(12)= 36	; [0-3] Averaging
+Ext_User_Prm_Data_Ref(12)= 19	; [4-7] Sensitivity
+; == next parameters are not compatible with FreqIn 
+Ext_User_Prm_Data_Ref(13)= 20; Low freq cutoff
+Ext_User_Prm_Data_Ref(14)= 17;  [7] Notch filter
+EndModule
+
+;
+;==	+GF+ Pressure 2450
+Module = "Pressure Sensor"   0xC0, 0x40, 0x88
+10
+Ext_Module_Prm_Data_len = 4
+Ext_User_Prm_Data_Const(0) = 0x09, 0x92, 0x01, 0x00
+Ext_User_Prm_Data_Ref(3)= 21 ;Press units
+Ext_User_Prm_Data_Ref(3)= 39;
+EndModule
+
+;
+;==	+GF+ Level+Pressure 2250, 2450
+Module = "Level Measurement"   0xC0, 0x40, 0x88
+11
+Ext_Module_Prm_Data_len = 6
+Ext_User_Prm_Data_Const(0) = 0x08,0xCA,0x03,0x00,0x00,0x00
+Ext_User_Prm_Data_Ref(3)= 22 
+Ext_User_Prm_Data_Ref(5)= 23 ;Level-Press units
+Ext_User_Prm_Data_Ref(5)= 39;
+EndModule
+
+
+;
+;
+;==	+GF+ pH 2750, 2751 (ID= 2750, 0x0ABE)
+Module = "pH Sensor"   0xC0, 0x40, 0x88
+12
+Ext_Module_Prm_Data_len = 5
+Ext_User_Prm_Data_Const(0) = 0x0A, 0xBE, 0x02, 0x00, 0x00
+;Implicit in ID Ext_User_Prm_Data_Ref(3)= 24 ; pH meas type
+Ext_User_Prm_Data_Ref(3)= 25 ; pH Temp units
+;Ext_User_Prm_Data_Ref(3)= 26 ; pH Chp electrode (not care anymore)
+Ext_User_Prm_Data_Ref(4)= 37 ; Averaging
+EndModule
+
+;
+;
+;==	+GF+ pH/ORP 2750, 2751 (ID= 1750, 0x06D6)
+Module = "ORP Sensor"   0xC0, 0x40, 0x88
+13
+Ext_Module_Prm_Data_len = 5
+Ext_User_Prm_Data_Const(0) = 0x06, 0xD6, 0x02, 0x00, 0x00
+;Implicit in ID Ext_User_Prm_Data_Ref(3)= 24 ; ORP meas type
+;Ext_User_Prm_Data_Ref(3)= 25 ; ORP Temp units (removed)
+;Ext_User_Prm_Data_Ref(3)= 26 ; ORP Chp electrode (not anymore)
+Ext_User_Prm_Data_Ref(4)= 37 ; Averaging
+EndModule
+
+
+
+;
+;==	+GF+ Dissolved Oxygen 2610
+Module = "Dissolved Oxygen Sensor"   0xC0, 0x40, 0x88
+14
+Ext_Module_Prm_Data_len = 13
+Ext_User_Prm_Data_Const(0) = 0x0A,0x32,0x0A,0x00,\
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+Ext_User_Prm_Data_Ref(3) = 27 ; DO units
+Ext_User_Prm_Data_Ref(3) = 28 ; DO temp units
+Ext_User_Prm_Data_Ref(4) = 29	; Barometric Pressure x0.01
+Ext_User_Prm_Data_Ref(8) = 30 ; Salinity x0.1"
+Ext_User_Prm_Data_Ref(12) = 46 ; Averaging
+EndModule
+
+
+; --- Slot definitions follow Module list
+; 1- Available, 2-Valve Ctrl, 3-FreqIn, 4-Raw 4-20mA, 5-Global St 
+; 6-Relay, 7- Temp, 8-CurrIn,	9-Cond,  10-Flow, 11-Press
+SlotDefinition
+Slot(1) = "S3L/Freq Channel 1" 1 1,3,5,6,7,8,9,10,11,12,13,14
+Slot(2) = "S3L/Freq Channel 2" 1 1,3,5,6,7,8,9,10,11,12,13,14
+Slot(3) = "S3L/Freq Channel 3" 1 1,3,5,6,7,8,9,10,11,12,13,14
+Slot(4) = "S3L/Freq Channel 4" 1 1,3,5,6,7,8,9,10,11,12,13,14
+Slot(5) = "S3L/4-20mAIn Ch. 5" 1 1,4,5,6,7,8,9,10,11,12,13,14
+Slot(6) = "S3L/4-20mAIn Ch. 6" 1 1,4,5,6,7,8,9,10,11,12,13,14
+Slot(7) = "Valve Actuator" 2 2
+EndSlotDefinition
+
+;Attention: The Slots until Max_Module can be configured with every module (or not)
+;Alarm settings are not on by default.
+;Here are the parameters that are used for alarms:
+
+;Diagnostic_Alarm_supp=1
+;Process_Alarm_supp=1
+;Pull_Plug_Alarm_supp=1
+;Status_Alarm_supp=1
+;Update_Alarm_supp=1
+;Manufacturer_Specific_Alarm_supp=1
+
+;Extra_Alarm_SAP_supp=0
+;Alarm_Sequence_Mode_Count=32
+;Alarm_Type_Mode_supp=1
+
+;Diagnostic_Alarm_required=0
+;Process_Alarm_required=0
+;Pull_Plug_Alarm_required=0
+;Status_Alarm_required=0
+;Update_Alarm_required=0
+;Manufacturer_Specific_Alarm_required=0

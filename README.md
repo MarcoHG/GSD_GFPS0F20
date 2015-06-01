@@ -1,2 +1,2 @@
-# gf0f20
+# GSD_GFPS0F20
 The GSD file for Profibus Concentrator
