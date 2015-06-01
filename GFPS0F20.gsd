@@ -15,7 +15,14 @@
 ;---------------------------------------------------------------------
 ; DATE          : 09 April 2015
 ;---------------------------------------------------------------------
-; MODIFICATIONS : 09 April 2015 rev. 1.00
+; MODIFICATIONS : 
+									11 May 2015 rev. 1.01
+									- Added I&M Support, 
+									- GSD_Revision changed from 3 to 5 (to support I&M)
+									- Set_Slave_Add_supp not supported for this release
+									
+									---------------------------
+									09 April 2015 rev. 1.00
 ;                   -First release
 ;
 ;=====================================================================
@@ -29,12 +36,12 @@
 
 
 
-GSD_Revision        = 3
+GSD_Revision        = 5	; Support I&M
 
 ; Device identification
 Vendor_Name         = "Georg Fischer Piping Systems"			
 Model_Name          = "3-0486"
-Revision            = "1.00"
+Revision            = "1.01"
 Ident_Number        = 0x0F20		
 Protocol_Ident      = 0                ; DP protocol
 Station_Type        = 0                ; Slave device
@@ -53,7 +60,7 @@ Implementation_Type = "NP30"
 Freeze_Mode_supp    = 1                ; supported
 Sync_Mode_supp      = 1                ; supported
 Auto_Baud_supp      = 1                ; supported
-Set_Slave_Add_supp  = 1                ; supported
+Set_Slave_Add_supp  = 0                ; Not supported V1.01 (PI Cert) 
 Fail_Safe           = 1                ; (TBD) states in clear mode
 
 ; Supported baudrates
@@ -153,7 +160,7 @@ C2_Response_Timeout     = 100  ;1 sec
 C2_Max_Count_Channels   = 1
 Max_Initiate_PDU_Length = 52
 
-; No I&M support -- Ident_Maintenance_supp  = 1	
+Ident_Maintenance_supp  = 1 ; I&M support 	
 
 
 PrmText = 2
@@ -429,7 +436,7 @@ Bit(2) 0 0-1
 Prm_Text_Ref = 2
 EndExtUserPrmData
 
-; Range 506.62 to 1114.7 taken from 2610.09 and Bruce Crabtree
+; Range 506.62 to 1114.7 taken from 2610.09
 ExtUserPrmData = 29 "Barometric mbar x0.01"
 unsigned32 101325 50662-111470
 EndExtUserPrmData
